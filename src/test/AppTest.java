@@ -112,26 +112,26 @@ public class AppTest {
     @Test
     public void testRemoveFim() {
         e.removeFim();
-        e.insereInicio(0);
-        e.insereInicio(1);
-        e.insereInicio(2);
-        e.insereInicio(3);
+        e.insereInicio(0); //[0]
+        e.insereInicio(1); //[1,0]
+        e.insereInicio(2); //[2,1,0]
+        e.insereInicio(3); //[3,2,1,0]
         assertEquals("Não encontrado " + 3, 3, e.buscaIndice(0));
-        e.removeFim();
+        e.removeFim(); //[3,2,1,0]
         assertFalse("Encontrado " + 0, e.buscaElemento(0));
         assertTrue("Encontrado " + 3, e.buscaElemento(3));
-        assertEquals("O ultimo é zero " + 0, 1, e.buscaIndice(2));//alteração de busca feita
+        assertEquals("O ultimo é zero " + 0, 1, e.buscaIndice(2)); //valor corrigido
     }
 
     @Test
     public void testRemoveInserePosicao() {
-        e.insereInicio(0);
-        e.insereInicio(1);
-        e.insereInicio(2);
-        e.insereInicio(3);
-        e.insereElementoPosicao(5, 0);
-        assertTrue(e.buscaElemento(5));
-        assertEquals(5, e.buscaIndice(0));
+        e.insereInicio(0); //[0]
+        e.insereInicio(1); //[1,0]
+        e.insereInicio(2); //[2,1,0]
+        e.insereInicio(3); //[3,2,1,0]
+        e.insereElementoPosicao(5, 0); //[5,3,2,1,0]
+        assertTrue(e.buscaElemento(5));  
+        assertEquals(5, e.buscaIndice(0)); 
         e.removeIndice(0);
         assertFalse(e.buscaElemento(5));
         assertEquals(3, e.buscaIndice(0));
