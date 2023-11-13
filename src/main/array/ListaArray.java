@@ -1,11 +1,11 @@
 package array;
-
+/*Marcelo Augusto de Barros Araújo. */
 import list.EstruturaElementar;
 
 public class ListaArray implements EstruturaElementar{
 
     private int[] array;
-    private int indice_fim;
+    private int indice_final;
 
     public ListaArray() {
 
@@ -13,87 +13,163 @@ public class ListaArray implements EstruturaElementar{
 
     @Override
     public boolean buscaElemento(int valor) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'buscaElemento'");
+        for (int i = 0; i < indice_final; i++) {
+            if (array[i] == valor){
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
     public int buscaIndice(int valor) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'buscaIndice'");
+        if ((valor < 0) || (valor >= indice_final)){
+            return -1;
+        }
+        return array[valor];
     }
 
     @Override
     public int minimo() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'minimo'");
+        if (indice_final == 0) {
+            return Integer.MAX_VALUE; // Valor padrão para array vazio
+        }
+
+        int valorMinimo = array[0];
+        for (int i = 1; i < indice_final; i++) {
+            if (array[i] < valorMinimo) {
+                valorMinimo = array[i];
+            }
+        }
+        return valorMinimo;
     }
 
     @Override
     public int maximo() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'maximo'");
+        if (indice_final == 0) {
+            return Integer.MIN_VALUE; // Valor padrão para array vazio
+        }
+
+        int valorMaximo = array[0];
+        for (int i = 1; i < indice_final; i++) {
+            if (array[i] > valorMaximo) {
+                valorMaximo = array[i];
+            }
+        }
+        return valorMaximo;
     }
 
-    @Override
+     @Override
     public int predecessor(int valor) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'predecessor'");
+        if ((valor > 1) && (valor < indice_final)) {
+            return array[valor - 1];
+        } else {
+            return -1;
+        }
     }
 
     @Override
     public int sucessor(int valor) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'sucessor'");
+        if ((valor > -1) && (valor < indice_final-1)) {
+            return array[valor + 1];
+        } else {
+            return -1;
+        }
     }
 
     @Override
     public void insereElemento(int valor) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'insereElemento'");
+        insereInicio(valor);
     }
 
     @Override
     public void insereElementoPosicao(int valor, int buscaIndice) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'insereElementoPosicao'");
+        if (buscaIndice < indice_final) {
+            int[] recebeArray = new int[array.length + 1];
+            for (int i = 0; i < buscaIndice; i++) {
+                recebeArray[i] = array[i];
+            }
+            recebeArray[buscaIndice] = valor;
+            for (int i = buscaIndice + 1; i < indice_final; i++) {
+                recebeArray[i] = array[i-1];
+            }
+            array = recebeArray;
+            indice_final ++;
+        }
     }
 
     @Override
     public void insereInicio(int valor) {
-        for (int i = indice_fim - 1; i > 0; i--)
-            array[i] = array[i+1];
-        array[0] = valor;
-    }
+            // Aumenta o tamanho da lista
+    int[] recebeArray = new int[array.length + 1];
+
+    // Copia todos os elementos da lista atual para a nova lista
+    for (int i = indice_final; i > 0; i--)
+        recebeArray[i] = array[i-1];
+
+    // Insere o novo valor no início da lista
+    recebeArray[0] = valor;
+
+    // Atualiza a referência da lista e o índice do final da lista
+    array = recebeArray;
+    indice_final ++;
+}
 
     @Override
     public void insereFim(int valor) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'insereFim'");
+        if (indice_final >= array.length) {
+            int [] recebeArray = new int[array.length + 1];
+            for (int i = 0; i < array.length; i++) {
+                recebeArray[i] = array[i];
+            }
+            array = recebeArray;
+            array[indice_final] = valor;
+            indice_final += 1;
+        } else {
+            array[indice_final] = valor;
+            indice_final += 1;
+        }
     }
 
     @Override
     public void remove(int valor) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'remove'");
+        if (remove(valor, false)){
+            remove(valor);
+        }
     }
+
+    private boolean remove(int valor, boolean b){
+        int posicao = buscaIndice(valor);
+        if (posicao != -1) {
+            for (int i = posicao; i < indice_final - 1; i++) {
+                array[i] = array[i + 1];
+            }
+            indice_final -= 1;
+            return true;
+        }
+        return false;
+    }
+
 
     @Override
     public void removeIndice(int indice) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'removeIndice'");
+        if ((indice >= 0) && (indice < indice_final)) {
+            for (int i = indice; i < indice_final - 1; i++) {
+                array[i] = array[i + 1];
+            }
+            indice_final -= 1;
+        }
     }
+
 
     @Override
     public void removeInicio() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'removeInicio'");
+        removeIndice(0);
     }
 
     @Override
     public void removeFim() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'removeFim'");
+        removeIndice(indice_final - 1);
     }
     
 }
