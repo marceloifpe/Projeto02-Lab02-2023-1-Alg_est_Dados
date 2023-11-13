@@ -100,21 +100,22 @@ public class ListaArray implements EstruturaElementar{
 
     @Override
     public void insereInicio(int valor) {
-            // Aumenta o tamanho da lista
-    int[] recebeArray = new int[array.length + 1];
-
-    // Copia todos os elementos da lista atual para a nova lista
-    for (int i = indice_final; i > 0; i--)
-        recebeArray[i] = array[i-1];
-
-    // Insere o novo valor no início da lista
-    recebeArray[0] = valor;
-
-    // Atualiza a referência da lista e o índice do final da lista
-    array = recebeArray;
-    indice_final ++;
-}
-
+        if (indice_final >= array.length) {
+            int [] listatemp = new int[array.length + 1];
+            for (int i = 0; i < array.length; i++) {
+                listatemp[i+1] = array[i];
+            }
+            array = listatemp;
+            array[0] = valor;
+            indice_final += 1;
+        } else {
+            for (int i = (indice_final -1); i >= 0; i--) {
+                array[i] = array[i-1];
+            }
+            array[0] = valor;
+            indice_final += 1;
+        }
+    }
     @Override
     public void insereFim(int valor) {
         if (indice_final >= array.length) {
