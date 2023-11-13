@@ -1,4 +1,5 @@
 package array;
+
 /* Marcelo Augusto de Barros Araújo */
 import list.EstruturaElementar;
 
@@ -35,7 +36,7 @@ public class ListaArray implements EstruturaElementar {
         if (indice_final == 0) {
             return -1;
         }
-    
+
         int min = array[0];
         int i = 1;
         while (i < indice_final) {
@@ -44,16 +45,16 @@ public class ListaArray implements EstruturaElementar {
             }
             i++;
         }
-    
+
         return min;
     }
-    
+
     @Override
     public int maximo() {
         if (indice_final == 0) {
             return -1;
         }
-    
+
         int max = array[0];
         int i = 1;
         while (i < indice_final) {
@@ -62,7 +63,7 @@ public class ListaArray implements EstruturaElementar {
             }
             i++;
         }
-    
+
         return max;
     }
 
@@ -101,7 +102,7 @@ public class ListaArray implements EstruturaElementar {
                 recebeArray[i] = array[i - 1];
             }
             array = recebeArray;
-            indice_final ++;
+            indice_final++;
         }
     }
 
@@ -130,7 +131,7 @@ public class ListaArray implements EstruturaElementar {
             indice_final += 1;
         } else {
             array[indice_final] = valor;
-            indice_final ++;
+            indice_final++;
         }
     }
 
@@ -147,7 +148,7 @@ public class ListaArray implements EstruturaElementar {
             for (int i = pos; i < indice_final - 1; i++) {
                 array[i] = array[i + 1];
             }
-            indice_final --;
+            indice_final--;
             return true;
         }
         return false;
